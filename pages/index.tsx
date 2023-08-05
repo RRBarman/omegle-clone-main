@@ -86,8 +86,12 @@ async function connectToAgoraRtc(
     mode: "rtc",
     codec: "vp8",
   });
-  var NEXT_PUBLIC_AGORA_APP_ID = "b421131a2b8e4f59a141d8a60195d6f4";
-  await client.join(NEXT_PUBLIC_AGORA_APP_ID!, roomId, token, userId);
+  await client.join(
+    process.env.NEXT_PUBLIC_AGORA_APP_ID!,
+    roomId,
+    token,
+    userId
+  );
 
   client.on("user-published", (themUser, mediaType) => {
     client.subscribe(themUser, mediaType).then(() => {
@@ -115,8 +119,7 @@ async function connectToAgoraRtm(
   token: string
 ) {
   const { default: AgoraRTM } = await import("agora-rtm-sdk");
-  const NEXT_PUBLIC_AGORA_APP_ID = "b421131a2b8e4f59a141d8a60195d6f4"; //"a53335a44e8f4c04bad2d57f27bf3e4f";
-  const client = AgoraRTM.createInstance(NEXT_PUBLIC_AGORA_APP_ID!);
+  const client = AgoraRTM.createInstance(process.env.NEXT_PUBLIC_AGORA_APP_ID!);
   await client.login({
     uid: userId,
     token,
